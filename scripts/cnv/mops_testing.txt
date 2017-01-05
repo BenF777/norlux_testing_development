@@ -1,0 +1,135 @@
+library(cn.mops)
+
+BAMFiles <- list.files(pattern="_aligned.bam$")
+
+segments_chr7 = read.delim("/home/benflies/github/norlux/scripts/bed/NPHD_chr7.bed",header=FALSE)
+
+gr_chr7 = GRanges(segments_chr7[,1], IRanges(segments_chr7[,2],segments_chr7[,3]))
+
+bam_counts_chr7 = getSegmentReadCountsFromBAM(BAMFiles, GR=gr_chr7, mode="paired", parallel=4)
+
+res_chr7 = exomecn.mops(bam_counts_chr7, parallel=4, priorImpact=10)
+
+jpeg('cnv_chr7_1.jpg')
+segplot(res_chr7,sampleIdx=1)
+dev.off()
+
+jpeg('cnv_chr7_2.jpg')
+segplot(res_chr7,sampleIdx=2)
+dev.off()
+
+jpeg('cnv_chr7_3.jpg')
+segplot(res_chr7,sampleIdx=3)
+dev.off()
+
+jpeg('cnv_chr7_4.jpg')
+segplot(res_chr7,sampleIdx=4)
+dev.off()
+
+jpeg('cnv_chr7_5.jpg')
+segplot(res_chr7,sampleIdx=5)
+dev.off()
+
+jpeg('cnv_chr7_6jpg')
+segplot(res_chr7,sampleIdx=6)
+dev.off()
+
+jpeg('cnv_chr7_7.jpg')
+segplot(res_chr7,sampleIdx=7)
+dev.off()
+
+jpeg('cnv_chr7_8.jpg')
+segplot(res_chr7,sampleIdx=8)
+dev.off()
+
+segments_egfr = read.delim("/home/benflies/github/norlux/scripts/bed/EGFR_for_cnv.bed",header=FALSE)
+
+gr_egfr = GRanges(segments_egfr[,1], IRanges(segments_egfr[,2],segments_egfr[,3]))
+
+bam_counts_egfr = getSegmentReadCountsFromBAM(BAMFiles, GR=gr_egfr, mode="paired", parallel=4)
+
+res = exomecn.mops(bam_counts_egfr, parallel=4, priorImpact=10)
+
+jpeg('cnv_egfr_1.jpg')
+segplot(res,sampleIdx=1)
+dev.off()
+
+jpeg('cnv_egfr_2.jpg')
+segplot(res,sampleIdx=2)
+dev.off()
+
+jpeg('cnv_egfr_3.jpg')
+segplot(res,sampleIdx=3)
+dev.off()
+
+jpeg('cnv_egfr_4.jpg')
+segplot(res,sampleIdx=4)
+dev.off()
+
+jpeg('cnv_egfr_5.jpg')
+segplot(res,sampleIdx=5)
+dev.off()
+
+jpeg('cnv_egfr_6.jpg')
+segplot(res,sampleIdx=6)
+dev.off()
+
+jpeg('cnv_egfr_7.jpg')
+segplot(res,sampleIdx=7)
+dev.off()
+
+jpeg('cnv_egfr_8.jpg')
+segplot(res,sampleIdx=8)
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+segments_whole = read.delim("/home/benflies/github/norlux/scripts/bed/NPHD_fixed_for_cnv.bed",header=FALSE)
+
+gr_whole = GRanges(segments_whole[,1], IRanges(segments_whole[,2],segments_whole[,3]))
+
+bam_counts_whole = getSegmentReadCountsFromBAM(BAMFiles, GR=gr_whole, mode="paired", parallel=4)
+
+res_whole = exomecn.mops(bam_counts_whole, parallel=4, priorImpact=10)
+
+jpeg('cnv_egfr_1.jpg')
+segplot(res,sampleIdx=1)
+dev.off()
+
+jpeg('cnv_egfr_2.jpg')
+segplot(res,sampleIdx=2)
+dev.off()
+
+jpeg('cnv_egfr_3.jpg')
+segplot(res,sampleIdx=3)
+dev.off()
+
+jpeg('cnv_egfr_4.jpg')
+segplot(res,sampleIdx=4)
+dev.off()
+
+jpeg('cnv_egfr_5.jpg')
+segplot(res,sampleIdx=5)
+dev.off()
+
+jpeg('cnv_egfr_6.jpg')
+segplot(res,sampleIdx=6)
+dev.off()
+
+jpeg('cnv_egfr_7.jpg')
+segplot(res,sampleIdx=7)
+dev.off()
+
+jpeg('cnv_egfr_8.jpg')
+segplot(res,sampleIdx=8)
+dev.off()
