@@ -38,7 +38,7 @@ echo "VARIANT ANNOTATION"
 bash $SCRIPT_PATH/dna/anovar_annotate.sh $CONFIG_FILE  $(ls -d -1 ${OUT}_snv_filtered_DP40_AF0.1.vcf)
 bash $SCRIPT_PATH/dna/anovar_annotate.sh $CONFIG_FILE  $(ls -d -1 ${OUT}_indels_filtered_DP40_AF0.1.vcf)
 
-Rscript $SCRIPT_PATH/dna/annovar_csv2xlsx_mpileup.R  $(ls -d -1 ${OUT}_snv_filtered_DP40_AF0.1.hg19_multianno.csv)
-Rscript $SCRIPT_PATH/dna/annovar_csv2xlsx_mpileup.R  $(ls -d -1 ${OUT}_indels_filtered_DP40_AF0.1.hg19_multianno.csv)
+python $SCRIPT_PATH/dna/csv_reordering_samtools.py ${OUT}_snv_filtered_DP40_AF0.1.hg19_multianno.csv
+python $SCRIPT_PATH/dna/csv_reordering_samtools.py ${OUT}_indels_filtered_DP40_AF0.1.hg19_multianno.csv
 
 echo "$OUT finished"
