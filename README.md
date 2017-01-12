@@ -19,6 +19,5 @@ Tools used:
 Variant Filtering Settings:
 - Minimum Coverage: 40x
 - Minimum Variant Allele Frequency: 10% (0.1)
-- Strand Bias: 0
-# norlux_testing_development
-# norlux_testing_development
+- Strand Bias: 10% (0.1)
+- Interval filtering (based on BED file)
