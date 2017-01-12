@@ -18,7 +18,7 @@ FREQ=0.1
 #echo $FILENAME #$OUT
 REFERENCE=/home/benflies/NGS/references/hg19/ucsc.hg19.fa
 
-samtools mpileup -f $REFERENCE -l $BED_FILE $FILENAME | java -jar $VARSCAN_HOME/VarScan.v2.4.3.jar mpileup2snp --min-coverage $COV --min-var-freq $FREQ --output-vcf > ${OUT}.vcf
+samtools mpileup -f $REFERENCE -l $BED_FILE $FILENAME | java -jar $VARSCAN_HOME/VarScan.v2.4.3.jar mpileup2snp --min-coverage $COV --min-var-freq $FREQ --output-vcf 1 > ${OUT}.vcf
 
 bgzip -c ${OUT}.vcf > ${OUT}.vcf.gz
 

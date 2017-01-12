@@ -19,8 +19,8 @@ FASTQ_PATH=$FILE_PATH/fastq_tmp
 FASTQ_DEMUX=$FILE_PATH/fastq
 BAM_PATH=$FILE_PATH/bam
 LOG_PATH=$FILE_PATH/log
-VAR_PATH=$FILE_PATH/var
-PLATYPUS_VAR=$FILE_PATH/var_platypus
+VAR_PATH_SAMTOOLS=$FILE_PATH/var_samtools
+VAR_PATH_PLATYPUS=$FILE_PATH/var_platypus
 CNV_PATH=$FILE_PATH/cnv
 
 echo "RUN Agilent paired end with BWA mem"
@@ -79,28 +79,30 @@ ACT_BED_FILE=$SCRIPT_PATH/bed/NPHD_fixed.bed
 
 echo "Variant Calling using Samtools for SNVs and Platypus for Indels"
 
-mkdir -p $VAR_PATH
-mkdir -p $PLATYPUS_VAR
+mkdir -p $VAR_PATH_SAMTOOLS
+mkdir -p $VAR_PATH_PLATYPUS
 
-ACT_BED_FILE=$SCRIPT_PATH/bed/NPHD.bed
-
-find $BAM_PATH -name "*_aligned.bam" | while read fname; do
-      echo $fname
-      bash $SCRIPT_PATH/dna/runSamtools_mpileup_SingleCase.sh $CONFIG_FILE $VAR_PATH $ACT_BED_FILE $fname
-done
+ACT_BED_FILE=$SCRIPT_PATH/bed/NPHD_fixed.bed
 
 find $BAM_PATH -name "*_aligned.bam" | while read fname; do
       echo $fname
-      bash $SCRIPT_PATH/dna/runPlatypus.sh $CONFIG_FILE $PLATYPUS_VAR $ACT_BED_FILE $fname
+      bash $SCRIPT_PATH/dna/runSamtools_INDEL.sh $CONFIG_FILE $VAR_PATH_SAMTOOLS $ACT_BED_FILE $fname &
+      bash $SCRIPT_PATH/dna/runSamtools_SNV.sh $CONFIG_FILE $VAR_PATH_SAMTOOLS $ACT_BED_FILE $fname
 done
+
+#find $BAM_PATH -name "*_aligned.bam" | while read fname; do
+#      echo $fname
+#      bash $SCRIPT_PATH/dna/runPlatypus_SNV.sh $CONFIG_FILE $VAR_PATH_PLATYPUS $ACT_BED_FILE $fname
+#    #bash $SCRIPT_PATH/dna/runPlatypus_INDEL.sh $CONFIG_FILE $VAR_PATH_PLATYPUS $ACT_BED_FILE $fname
+#done
 
 echo "COVERAGE"
 
 COVERAGE_PATH=$FILE_PATH/coverage
 mkdir -p $COVERAGE_PATH
 
-find $BAM_PATH -name "*.dupsMarked.bam" | while read fname; do
-      Rscript $SCRIPT_PATH/qc/CoverageTEQC.R $COVERAGE_PATH $ACT_BED_FILE $fname &
-done
+#find $BAM_PATH -name "*.dupsMarked.bam" | while read fname; do
+#      Rscript $SCRIPT_PATH/qc/CoverageTEQC.R $COVERAGE_PATH $ACT_BED_FILE $fname &
+#done
 
 echo "Analysis ready!"
