@@ -24,6 +24,6 @@ python $SCRIPT_PATH/dna/VariantFilter_platypus.py ${OUT}_indel.vcf $BED_FILE 40 
 echo "VARIANT ANNOTATION"
 bash $SCRIPT_PATH/dna/anovar_annotate.sh $CONFIG_FILE  $(ls -d -1 ${OUT}_indel_filtered_DP_FREQ_SB_intervals.vcf)
 
-#python $SCRIPT_PATH/dna/csv_reordering_platypus.py ${OUT}_indel_filtered_DP_FREQ_SB_intervals.hg19_multianno.csv
+python $SCRIPT_PATH/dna/csv_reordering_platypus.py ${OUT}_indel_filtered_DP_FREQ_SB_intervals.hg19_multianno.csv
 
 echo "$OUT finished"

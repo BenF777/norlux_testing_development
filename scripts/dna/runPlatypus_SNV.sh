@@ -18,15 +18,12 @@ bgzip -c ${OUT}_snv.vcf > ${OUT}_snv.vcf.gz
 tabix -p vcf ${OUT}_snv.vcf.gz
 
 echo "FILTER Platypus"
-#Rscript $SCRIPT_PATH/dna/VariantFilter_platypus_INDEL.R 40 -1 -1 ${OUT}.vcf.gz
-#Rscript $SCRIPT_PATH/dna/VariantFilter_platypus_SNP.R 40 0.1 0.1 ${OUT}_snv.vcf.gz
+
 python $SCRIPT_PATH/dna/VariantFilter_platypus.py ${OUT}_snv.vcf $BED_FILE 40 0.1 0.1
 
-#variant annotation
 echo "VARIANT ANNOTATION"
+bash $SCRIPT_PATH/dna/anovar_annotate.sh $CONFIG_FILE  $(ls -d -1 ${OUT}_snv_filtered_DP_FREQ_SB_intervals.vcf)
 
-#bash $SCRIPT_PATH/dna/anovar_annotate.sh $CONFIG_FILE $(ls -d -1 ${OUT}_snv_filtered_DP40_AF0.1.vcf)
-
-#Rscript $SCRIPT_PATH/dna/annovar_csv2xlsx_platypus.R  $(ls -d -1 ${OUT}_filtered_DP40_AF0.1.hg19_multianno.csv)
+#python $SCRIPT_PATH/dna/csv_reordering_platypus.py ${OUT}_snv_filtered_DP_FREQ_SB_intervals.hg19_multianno.csv
 
 echo "$OUT finished"

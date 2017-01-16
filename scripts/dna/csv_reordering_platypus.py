@@ -32,20 +32,11 @@ def csv_to_dict(file_name):
             depth = [re.sub("TC=", '', s) for s in l1[10] if "TC=" in s][0]
             row["Read_Depth"] = str(depth)
 
-            #Extract the DP4 field (ref_forward, ref_reverse, alt_forwar, alt_reverse)
-            dp4 = [re.sub("DP4=", '', s) for s in l1[10] if "DP4=" in s]
-            dp4[0] = re.split(r',+', dp4[0].rstrip(','))
+            #Extract TC field (total number of reads containing this variant)
+            TR = [re.sub("TR=", '', s) for s in l1[10] if "TR=" in s]
+            TR = TR[0]
 
-            ref_for = float(dp4[0][0])
-            ref_rev = float(dp4[0][1])
-            alt_for = float(dp4[0][2])
-            alt_rev = float(dp4[0][3])
-
-            #If both ref_for and ref_rev are 0, the allele frequency is 1
-            if ref_for != 0 and ref_rev != 0:
-                af = (alt_for + alt_rev) / (ref_for + ref_rev + alt_for + alt_rev)
-            else:
-                af = 1
+            af = float(TR) / float(depth)
 
             row["Variant_Allele_Frequency"] = af
 
