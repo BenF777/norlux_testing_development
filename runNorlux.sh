@@ -84,17 +84,17 @@ mkdir -p $VAR_PATH_PLATYPUS
 
 ACT_BED_FILE=$SCRIPT_PATH/bed/NPHD_fixed.bed
 
-find $BAM_PATH -name "*_aligned.bam" | while read fname; do
-      echo $fname
-      bash $SCRIPT_PATH/dna/runSamtools_INDEL.sh $CONFIG_FILE $VAR_PATH_SAMTOOLS $ACT_BED_FILE $fname &
-      bash $SCRIPT_PATH/dna/runSamtools_SNV.sh $CONFIG_FILE $VAR_PATH_SAMTOOLS $ACT_BED_FILE $fname
-done
-
 #find $BAM_PATH -name "*_aligned.bam" | while read fname; do
 #      echo $fname
-#      bash $SCRIPT_PATH/dna/runPlatypus_SNV.sh $CONFIG_FILE $VAR_PATH_PLATYPUS $ACT_BED_FILE $fname
-#    #bash $SCRIPT_PATH/dna/runPlatypus_INDEL.sh $CONFIG_FILE $VAR_PATH_PLATYPUS $ACT_BED_FILE $fname
+#      bash $SCRIPT_PATH/dna/runSamtools_INDEL.sh $CONFIG_FILE $VAR_PATH_SAMTOOLS $ACT_BED_FILE $fname &
+#      bash $SCRIPT_PATH/dna/runSamtools_SNV.sh $CONFIG_FILE $VAR_PATH_SAMTOOLS $ACT_BED_FILE $fname
 #done
+
+find $BAM_PATH -name "*_aligned.bam" | while read fname; do
+      echo $fname
+      #bash $SCRIPT_PATH/dna/runPlatypus_SNV.sh $CONFIG_FILE $VAR_PATH_PLATYPUS $ACT_BED_FILE $fname
+      bash $SCRIPT_PATH/dna/runPlatypus_INDEL.sh $CONFIG_FILE $VAR_PATH_PLATYPUS $ACT_BED_FILE $fname
+done
 
 echo "COVERAGE"
 

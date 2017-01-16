@@ -15,9 +15,6 @@ INPUT = re.sub(".vcf", '', VCF_FILE)
 OUTPUT_VCF = INPUT+"_filtered.vcf"
 
 def vcf_converter(vcf_filename):
-    """
-    Bring VCF in a more easy format for certain applications
-    """
     lines = []
     variant_counter = 0
     meta = []
@@ -136,7 +133,7 @@ def VCF_Info_filter(vcf, info_field, threshold):
                                 SB = 0
                             elif reverse == 0:
                                 SB = 1
-                            if SB > threshold:
+                            if SB > threshold and SB < t_1:
                                 flag = 1
                                 break
                     else:
